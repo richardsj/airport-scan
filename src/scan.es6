@@ -10,7 +10,8 @@ function parseAirportScan(scanOutput) {
         const split = _.reject(line.split(/\s/), part => part.length === 0);
         let security = split.slice(-1)[0];
         security = security === 'NONE'? null: security;
-        const cc = split.slice(-2)[0];
+        let cc = split.slice(-2)[0];
+        cc = cc === '--'? null: cc;
         const ht = split.slice(-3)[0] === 'Y';
         const channel = split.slice(-4)[0];
         const rssi = parseInt(split.slice(-5)[0], 10);
