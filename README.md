@@ -1,6 +1,9 @@
 # wifi-scan
 Perform WiFi network scanning from node via system tools.
 
+Uses `airport`, with support for falling back to absolute-path `airport`, and
+other utilities on other OSs coming in future.
+
 ## Installation
 
 ```bash
