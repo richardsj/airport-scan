@@ -1,6 +1,12 @@
 # wifi-scan
 Perform WiFi network scanning from node via system tools.
 
+## Installation
+
+```bash
+$ npm install wifi-scan
+```
+
 ## Usage
 ```js
 var scan = require('wifi-scan');
