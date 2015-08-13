@@ -25,14 +25,14 @@ scan.performScan()
 
 ## API reference
 
-### performScan() -> Promise([[AccessPoint](#accesspoint)])
+#### performScan() -> Promise([[AccessPoint](#accesspoint)])
 Promise to return an array of access point information objects. You may well be
 given multiple `AccessPoint`s per network, in which case the `ssid` properties
 will match but `bssid` MAC addresses will be unique.
 
 ## `AccessPoint`
 
-### `channel` (`string`)
+#### `channel` (`string`)
 The channel on which the access point is operating. Given as a string since
 often this includes non-numerical symbols (eg '116,+1').
 
@@ -40,36 +40,36 @@ Examples
 * `'56'`
 * `'116,+1'`
 
-### `security` (`string|null`)
+#### `security` (`string|null`)
 The security scheme being used. Can be `null` if no security in use.
 
 Examples
 * `'WPA2(PSK/AES/AES)'`
 * `'WPA2(802.1x/AES/AES)'`
 
-### `ssid` (`string`)
+#### `ssid` (`string`)
 The SSID of the network which this access point serves.
 
 Examples
 * `'My Home Wifi'`
 
-### `bssid` (`string`)
+#### `bssid` (`string`)
 The BSSID (MAC address) of the access point.
 
 Examples
 * `'12:34:56:78:90:ab'`
 
-### `rssi` (`number`)
+#### `rssi` (`number`)
 [Received singal strength indication](https://wikipedia.org/wiki/Received_signal_strength_indication)
 for the access point.
 
 Examples
 * `-73`
 
-### `ht` (`boolean`)
+#### `ht` (`boolean`)
 Is high throughput (HT) mode in use?
 
-### `cc` (`string|null`)
+#### `cc` (`string|null`)
 Country code being used by the access point (see Cisco's list of accepted values
 [here](http://www.cisco.com/c/en/us/td/docs/wireless/wcs/3-2/configuration/guide/wcscfg32/wcscod.html)).
 
