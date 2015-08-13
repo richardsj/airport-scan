@@ -25,7 +25,7 @@ scan.performScan()
 
 ## API reference
 
-### performScan() -> Promise([AccessPoint])
+### performScan() -> Promise([[AccessPoint](#accesspoint)])
 Promise to return an array of access point information objects. You may well be
 given multiple `AccessPoint`s per network, in which case the `ssid` properties
 will match but `bssid` MAC addresses will be unique.
