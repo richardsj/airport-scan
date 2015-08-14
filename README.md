@@ -11,12 +11,21 @@ $ npm install wifi-scan
 ```
 
 ## Usage
+
+#### Vanilla JS
 ```js
 var scan = require('wifi-scan');
 
 scan.performScan()
 .then(function (info) {})
 .catch(function (err) {});
+```
+
+#### ES6
+```js
+import * as scan from 'wifi-scan';
+
+// ...
 ```
 
 ## Notes
