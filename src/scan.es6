@@ -16,7 +16,7 @@ function parseAirportScan(scanOutput) {
       const auth = split[0];
       const unicast = split[1];
       const group = split[2];
-      security = {protocol, auth, unicast, group};
+      security = {protocol, auth, unicast, group, raw: security};
     }
     let cc = split.slice(-2)[0];
     cc = cc === '--'? null: cc;
