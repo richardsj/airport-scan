@@ -15,15 +15,8 @@ $ npm install wifi-scan
 var scan = require('wifi-scan');
 
 scan.performScan()
-.then(function (results) {
-
-  // results.commands -
-
-}).catch(function (err) {
-
-  console.error(err.stack);
-
-});
+.then(function (info) {})
+.catch(function (err) {});
 ```
 
 ## API reference
@@ -33,76 +26,41 @@ Promise to return an array of access point information objects. You may well be
 given multiple `AccessPoint`s per network, in which case the `ssid` properties
 will match but `bssid` MAC addresses will be unique.
 
-## `AccessPoint`
+Return object is of the form:
 
-#### `channel` (string)
-The channel on which the access point is operating. Given as a string since
-often this includes non-numerical symbols (eg '116,+1').
-
-Examples
-* `'56'`
-* `'116,+1'`
-
-#### `security` (object/null)
-
-##### `protocol` (string)
-The security protocol in use.
-
-Examples:
-* `'WPA2'`
-
-##### `auth` (string)
-Encryption scheme used for auth.
-
-Examples:
-* `'PSK'`
-* `'802.1x'`
-
-##### `unicast` (string)
-Encryption scheme used for unicast.
-
-Examples:
-* `'AES'`
-
-##### `group` (string)
-Encryption scheme used for group.
-
-Examples:
-* `'AES'`
-
-#### `raw` (string)
-Raw string representation of the security scheme as formatted by `airport`.
-That is, `protocol(auth/unicast/group)`.
-
-Examples:
-* `'WPA2(PSK/AES/AES)'`
-
-#### `ssid` (`string`)
-The SSID of the network which this access point serves.
-
-Examples
-* `'My Home Wifi'`
-
-#### `bssid` (string)
-The BSSID (MAC address) of the access point.
-
-Examples
-* `'12:34:56:78:90:ab'`
-
-#### `rssi` (number)
-[Received singal strength indication](https://wikipedia.org/wiki/Received_signal_strength_indication)
-for the access point.
-
-Examples
-* `-73`
-
-#### `ht` (boolean)
-Is high throughput (HT) mode in use?
-
-#### `cc` (string/null)
-Country code being used by the access point (see Cisco's list of accepted values
-[here](http://www.cisco.com/c/en/us/td/docs/wireless/wcs/3-2/configuration/guide/wcscfg32/wcscod.html)).
-
-Examples
-* `'GB'`
-* `'JP'`
+```js
+{
+  "accessPoints": [                   // List of access points found by the scan
+    {
+      "id": 0,                        // Incremental numerical ID for the AP
+      "security": {                   // Description of the securit in use by AP - can be null
+        "protocol": "WPA2",           // Protocol
+        "auth": "PSK",                // Auth encryption scheme
+        "unicast": "AES",             // Unicast encryption scheme
+        "group": "AES",               // Group (multicast) encryption scheme
+        "raw": "WPA2(PSK/AES/AES)"    // Raw output formatted as by airport -s
+      },
+      "cc": "GB",                     // Country code reported - can be null
+      "ht": true,                     // Is high-throughput mode enabled?
+      "channel": "2",                 // Channel (as string because sometimes '+1' etc)
+      "rssi": -82,                    // RSSI (https://wikipedia.org/wiki/Received_signal_strength_indication)
+      "bssid": "12:34:56:78:90:ab",   // BSSID (MAC address) for the AP
+      "ssid": "Jack's Wifi"           // SSID reported
+    },
+    {
+      "id": 1,
+      "security": null,
+      "cc": null,
+      "ht": false,
+      "channel": "60,+1",
+      "rssi": -83,
+      "bssid": "12:34:56:78:90:ab",
+      "ssid": "Jack's Open Wifi"
+    },
+    // ...
+  ],
+  "commands": [                       // Reports the commands run to retrieve the raw data
+    "airport -s"                      // On a Mac, tries this
+  ]
+}
+```
