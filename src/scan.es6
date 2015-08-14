@@ -10,6 +10,14 @@ function parseAirportScan(scanOutput) {
     const split = _.reject(line.split(/\s/), part => part.length === 0);
     let security = split.slice(-1)[0];
     security = security === 'NONE'? null: security;
+    if (security !== null) {
+      const protocol = security.substr(0, security.indexOf('('));
+      const split = security.slice(security.indexOf('(') + 1, -1).split('/');
+      const auth = split[0];
+      const unicast = split[1];
+      const group = split[2];
+      security = {protocol, auth, unicast, group};
+    }
     let cc = split.slice(-2)[0];
     cc = cc === '--'? null: cc;
     const ht = split.slice(-3)[0] === 'Y';
