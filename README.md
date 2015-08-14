@@ -19,6 +19,15 @@ scan.performScan()
 .catch(function (err) {});
 ```
 
+## Notes
+At present, the tool will only work on Mac, because it uses the `airport -s`
+command to retrieve raw information. However, the plan is to allow it to detect
+OS and attempt different approaches.
+
+The scan will first try `airport`, followed by the expected absolute location
+`/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport`.
+Currently, if neither of these works, it will fail.
+
 ## API reference
 
 #### performScan() -> Promise(information)

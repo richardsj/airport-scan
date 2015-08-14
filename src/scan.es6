@@ -1,6 +1,20 @@
 import _ from 'lodash';
 import childProcess from 'child_process';
 
+const implicitAirportCommand = 'airport -s';
+const absoluteAirportCommand = '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -s';
+
+function cmd(command) {
+  return new Promise((resolve, reject) => {
+    childProcess.exec(command, (err, stdout, stderr) => {
+      if (!!err) {return reject(err);}
+      if (stderr.length > 0) {return reject(new Error(stderr));}
+      if (stdout.length === 0) {return reject(new Error('Empty response from command'));}
+      return resolve(stdout);
+    });
+  });
+}
+
 function parseAirportScan(scanOutput) {
   // Get lines and discard header
   const lines = _.reject(scanOutput.split('\n').slice(1), line => line.length === 0);
@@ -32,15 +46,19 @@ function parseAirportScan(scanOutput) {
 }
 
 export function performScan() {
-  return new Promise((resolve, reject) => {
-    const airportCmd = 'airport -s';
-    childProcess.exec(airportCmd, (err, stdout, stderr) => {
-      if (!!err) {return reject(err);}
-      if (stderr.length > 0) {return reject(new Error(stderr));}
-      if (stdout.length === 0) {return reject(new Error('Empty response from airport'));}
+  return (
+    cmd(implicitAirportCommand)
+    .then(stdout => {
       const parsed = parseAirportScan(stdout);
-      parsed.commands = [airportCmd];
-      return resolve(parsed);
-    });
-  });
+      parsed.commands = [implicitAirportCommand];
+      return parsed;
+    })
+    .catch(err => cmd(absoluteAirportCommand)
+      .then(stdout => {
+        const parsed = parseAirportScan(stdout);
+        parsed.commands = [absoluteAirportCommand];
+        return parsed;
+      })
+    )
+  );
 }
