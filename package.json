@@ -1,17 +1,21 @@
 {
-  "name": "wifi-scan",
+  "name": "airport-scan",
   "description": "Perform WiFi network scanning from node via system tools",
   "author": "Jack Preston <unwttng@gmail.com>",
-  "version": "0.0.8",
+  "version": "0.0.1",
   "keywords": [
     "wifi",
     "network",
-    "scan"
+    "scan",
+    "airport",
+    "mac",
+    "macbook",
+    "networking"
   ],
   "main": "lib/scan.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/unwitting/wifi-scan.git"
+    "url": "git://github.com/unwitting/airport-scan.git"
   },
   "scripts": {
     "compile": "./node_modules/.bin/babel -d lib/ src/",

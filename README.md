@@ -1,20 +1,17 @@
-# wifi-scan
-Perform WiFi network scanning from node via system tools.
-
-Uses `airport`, with support for falling back to absolute-path `airport`, and
-other utilities on other OSs coming in future.
+# airport-scan
+Perform WiFi network scanning from node on a Mac using `airport`.
 
 ## Installation
 
 ```bash
-$ npm install wifi-scan
+$ npm install airport-scan
 ```
 
 ## Usage
 
 #### Vanilla JS
 ```js
-var scan = require('wifi-scan');
+var scan = require('airport-scan');
 
 scan.performScan()
 .then(function (info) {})
@@ -23,19 +20,18 @@ scan.performScan()
 
 #### ES6
 ```js
-import * as scan from 'wifi-scan';
+import * as scan from 'airport-scan';
 
 // ...
 ```
 
 ## Notes
-At present, the tool will only work on Mac, because it uses the `airport -s`
-command to retrieve raw information. However, the plan is to allow it to detect
-OS and attempt different approaches.
+This tool will only work on Mac, because it uses the `airport -s` command to
+retrieve raw information.
 
 The scan will first try `airport`, followed by the expected absolute location
 `/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport`.
-Currently, if neither of these works, it will fail.
+If neither of these works, it will fail.
 
 ## API reference
 
@@ -76,7 +72,7 @@ Return object is of the form:
     // ...
   ],
   "commands": [                       // Reports the commands run to retrieve the raw data
-    "airport -s"                      // On a Mac, tries this
+    "airport -s"
   ]
 }
 ```
