@@ -31,7 +31,7 @@ retrieve raw information.
 
 The scan will first try `airport`, followed by the expected absolute location
 `/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport`.
-If neither of these works, it will fail.
+If neither of these exists, it will fail.
 
 ## API reference
 
